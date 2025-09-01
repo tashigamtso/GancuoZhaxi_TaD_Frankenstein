@@ -69,9 +69,58 @@
             <xsl:apply-templates/>
         </span>
     </xsl:template>
+
+    <xsl:template match="tei:add[@place = 'intralinear']">
+        <span class="intraAdd">
+            <xsl:apply-templates/>
+        </span>
+    </xsl:template>
+
+    <xsl:template match="tei:add[@place = 'inline']">
+        <span class="inlineAdd">
+            <xsl:apply-templates/>
+        </span>
+    </xsl:template>
+
+    <xsl:template match="tei:metamark[@function ='pagenumber']">
+        <span class="pagenumber">
+            <xsl:apply-templates/>
+        </span>
+    </xsl:template>
     
     
     <!-- add additional templates below, for example to transform the tei:lb in <br/> empty elements, tei:hi[@rend = 'sup'] in <sup> elements, the underlined text, additions with the attribute "overwritten" etc. -->
 
-    
+    <xsl:template match="tei:lb">
+        <span class="lineBreak">
+            <br/>
+        </span>
+    </xsl:template>
+
+    <xsl:template match="del|add|hi">
+        <xsl:choose>
+            <xsl:when test="@rend='sup'">
+                <sup><xsl:apply-templates/></sup>
+            </xsl:when>
+
+            <xsl:when test="@rend='u'">
+                <span class="u">
+                    <xsl:apply-templates/>
+                </span>
+            </xsl:when>
+
+            <xsl:when test="@rend='blackink'">
+                <span class="blackink">
+                    <xsl:apply-templates/>
+            </xsl:when>
+
+            <xsl :when test="@rend='circled'" >
+                <span class="circled">
+                    <xsl:apply-templates/>
+            </xsl:when>
+    </xsl:template>
+
+
+
+
 </xsl:stylesheet>
